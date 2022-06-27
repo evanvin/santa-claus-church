@@ -1132,6 +1132,38 @@ div.metric > span {
 }
 
 #countdown {
-  background-color: #6d8a96;
+  /* background-color: #6d8a96; */
   color: #fbd784;
+}
+
+div.newsletter > div.text-center {
+  text-align: center;
+}
+
+.form-group.d-flex {
+  display: flex;
+  justify-content: center;
+}
+/* FORM */
+.subscribe-form .form-group input {
+  background: white !important;
+  border: 1px solid transparent;
+  color: rgba(0, 0, 0, 0.7) !important;
+  font-size: 16px;
+  border-radius: 5px 0px 0px 5px;
+  height: 52px !important;
+  box-shadow: none !important;
+  padding: 0.375rem 0.75rem;
+  display: block;
+}
+
+.subscribe-form .form-group .submit {
+  color: #fff !important;
+  background: #b59877 !important;
+  border-radius: 0px 5px 5px 0px;
+  font-size: 16px;
+  border: 1px solid transparent;
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+  display: block;
 }
