@@ -1164,7 +1164,6 @@ div.metric > span {
 }
 
 #countdown {
-  /* background-color: #6d8a96; */
   color: #fbd784;
 }
 
@@ -1199,4 +1198,12 @@ ul.workshops {
 
 .mb-0 {
   margin-bottom: 0px;
+}
+.jingle-bells-video {
+  position: absolute;
+  height: 100px;
+  right: 25px;
+  bottom: 50px;
+  z-index: 50;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

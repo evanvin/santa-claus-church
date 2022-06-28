@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Fri Apr 17 2020 17:21:22 GMT+0000 (Coordinated Universal Time)  -->
-<html
-  data-wf-page="5e99e50e1c66a9720b7ceb38"
-  data-wf-site="5e2d678660dc1a91f8ef1b43"
-  lang="en"
->
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Santa Claus</title>
@@ -22,14 +18,6 @@
     <meta content="Santa Claus" property="og:title" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="revisit-after" content="15 days" />
-    <meta
-      content="This is a concept for a blog landing page about hiking and traveling. By Kryston Schwarze."
-      property="og:description"
-    />
-    <meta
-      content="http://drive.google.com/uc?export=view&amp;id=1A3w-CeEMQgr1Tvk6RG8-RAgnAR3TEjqf"
-      property="og:image"
-    />
     <meta content="summary" name="twitter:card" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="Webflow" name="generator" />
@@ -73,7 +61,14 @@
     <meta name="theme-color" content="#18a76b" />
   </head>
   <body class="body">
-    <div
+    <video class="jingle-bells-video" autoplay muted>
+      <source
+        src="./images/Frank Sinatra - Jingle Bells.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support HTML5 video.
+    </video>
+    <!-- <div
       data-w-id="41b39f2a-3cc6-0436-9059-9418e7f2bdc5"
       style="display: flex; opacity: 1"
       class="loading"
@@ -86,7 +81,7 @@
           class="logo-loading"
         />
       </div>
-    </div>
+    </div> -->
     <div class="site-wrapper">
       <div class="hero-section">
         <div class="navbar">
@@ -118,33 +113,6 @@
                 <div>Our Work</div>
               </a>
             </div>
-            <!-- <div class="account">
-              <a href="index.html#" class="link-to hero w-inline-block">
-                <div class="icon margin-right w-embed">
-                  <svg
-                    width="24"
-                    height="24"
-                    viewbox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M12 14C14.2091 14 16 12.2091 16 10C16 7.79086 14.2091 6 12 6C9.79086 6 8 7.79086 8 10C8 12.2091 9.79086 14 12 14ZM12 12C13.1046 12 14 11.1046 14 10C14 8.89543 13.1046 8 12 8C10.8954 8 10 8.89543 10 10C10 11.1046 10.8954 12 12 12Z"
-                      fill="currentColor"
-                    ></path>
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M17.9261 20.0557C20.397 18.235 22 15.3047 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 15.3047 3.60301 18.235 6.07388 20.0557C6.11934 20.0892 6.16509 20.1223 6.21112 20.1551C6.65997 20.4742 7.1363 20.7573 7.63587 21C8.95464 21.6407 10.4354 22 12 22C13.5646 22 15.0454 21.6407 16.3641 21C16.3909 20.987 16.4177 20.9738 16.4443 20.9606C16.9657 20.7015 17.4613 20.3982 17.9261 20.0557ZM17.2287 18.055C18.926 16.588 20 14.4194 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 14.4194 5.07401 16.588 6.77128 18.055C7.80066 16.2313 9.75654 15 12 15C14.2435 15 16.1993 16.2313 17.2287 18.055ZM15.5567 19.1679C14.8921 17.8803 13.5488 17 12 17C10.4512 17 9.10792 17.8803 8.44332 19.1679C9.51467 19.7005 10.7224 20 12 20C13.2776 20 14.4853 19.7005 15.5567 19.1679Z"
-                      fill="currentColor"
-                    ></path>
-                  </svg>
-                </div>
-                <div>Account</div>
-              </a>
-            </div> -->
           </div>
         </div>
         <div
@@ -503,29 +471,33 @@
             <img src="images/04.jpg" alt="Snowy main street" class="image" />
           </div>
         </div>
-      </div>
 
-      <div class="content-wrapper content clear-bottom-margin newsletter">
-        <div class="text-center">
-          <h2>Newsletter</h2>
-          <p>Want to hear more about the great adventures of Santa Claus?</p>
-          <div>
+        <div class="content-wrapper content clear-bottom-margin newsletter">
+          <div class="text-center">
+            <h2>Newsletter</h2>
+            <p>Want to hear more about the great adventures of Santa Claus?</p>
             <div>
-              <form
-                action="https://clovereartquakedog.pythonanywhere.com/santa/email/sub"
-                class="subscribe-form"
-                method="POST"
-              >
-                <div class="form-group d-flex">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter email address"
-                    name="email"
-                  />
-                  <input type="submit" value="Subscribe" class="submit px-3" />
-                </div>
-              </form>
+              <div>
+                <form
+                  action="https://clovereartquakedog.pythonanywhere.com/santa/email/sub"
+                  class="subscribe-form"
+                  method="POST"
+                >
+                  <div class="form-group d-flex">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter email address"
+                      name="email"
+                    />
+                    <input
+                      type="submit"
+                      value="Subscribe"
+                      class="submit px-3"
+                    />
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -570,14 +542,14 @@
                       </defs>
                     </svg>
                   </div> -->
-                  <div class="mntn-logo w-embed">
+                  <!-- <div class="mntn-logo w-embed">
                     <img
                       src="images/logo_name.svg"
                       height="24"
                       alt="Logo Name"
                       class="logo-loading"
                     />
-                  </div>
+                  </div> -->
                 </a>
                 <div class="footer-text">
                   Join us &amp; discover your new life!
@@ -611,7 +583,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/webflow.js" type="text/javascript"></script>
-    <script src="js/countdown.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
     <script src="js/flip-clock.js" type="text/javascript"></script>
     <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
   </body>

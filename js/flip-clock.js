@@ -1,5 +1,3 @@
-console.clear();
-
 function CountdownTracker(label, value) {
   let el = document.createElement('span');
 
@@ -34,7 +32,6 @@ function CountdownTracker(label, value) {
     }
   };
 
-  console.log(value, label);
   this.update(value);
 }
 

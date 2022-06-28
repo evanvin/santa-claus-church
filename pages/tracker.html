@@ -8,5 +8,26 @@
   </head>
   <body>
     <h1>Tracking Santa Claus</h1>
+
+    <video id="videoElement" autoplay controls muted autopictureinpicture>
+      <source
+        src="../images/Frank Sinatra - Jingle Bells.mp4"
+        type="video/mp4"
+      />
+      Your browser does not support HTML5 video.
+    </video>
+    <button id="pipButtonElement">Click</button>
+
+    <script>
+      pipButtonElement.addEventListener('click', async function () {
+        pipButtonElement.disabled = true;
+
+        videoElement.style.visibility = 'hidden';
+
+        await videoElement.requestPictureInPicture();
+
+        pipButtonElement.disabled = false;
+      });
+    </script>
   </body>
 </html>
