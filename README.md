@@ -14,4 +14,4 @@
 - [ ] Add google tracking
 - [ ] look into robot.txt
 - [ ] finish video stuff
-- [ ] 
+- [ ]
