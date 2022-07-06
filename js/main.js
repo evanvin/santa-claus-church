@@ -1,6 +1,6 @@
 function CountdownTime() {
   // Get Santa Lift off Date
-  let santaLiftOff = new Date('Dec 24, 1992 21:00:00');
+  let santaLiftOff = new Date(Date.UTC('Dec 24, 1992 21:00:00'));
 
   // Get todays date
   let now = new Date();

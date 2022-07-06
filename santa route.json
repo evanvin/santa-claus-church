@@ -8,7 +8,7 @@
       "presentsDelivered": 0,
       "city": "Santa's Village",
       "region": "North Pole",
-      "location": { "lat": 84.6, "lng": 168 },
+      "location": { "lat": 70.1170759479725, "lng": 26.30972185655632 },
       "details": {
         "timezone": 0,
         "photos": [
@@ -19897,7 +19897,7 @@
       "presentsDelivered": 7700000000,
       "city": "Santa's Village",
       "region": "North Pole",
-      "location": { "lat": 84.6, "lng": 168 },
+      "location": { "lat": 70.1170759479725, "lng": 26.30972185655632 },
       "details": { "timezone": 0, "photos": [] }
     }
   ]

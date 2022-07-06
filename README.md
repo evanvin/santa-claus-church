@@ -14,4 +14,7 @@
 - [ ] Add google tracking
 - [ ] look into robot.txt
 - [ ] finish video stuff
-- [ ]
+- [ ] tracker
+  - [ ] Remove proxy stuff
+  - [ ] Update how presents delivered is at start
+- [ ] 
