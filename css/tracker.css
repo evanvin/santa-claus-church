@@ -1,7 +1,38 @@
 html,
 body,
 #map {
-  height: 680px;
+  margin: 0px;
   height: 100%;
   width: 100%;
+}
+
+#map {
+  z-index: 1;
+  position: relative;
+}
+
+#follow {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  z-index: 42;
+}
+
+#infoPanel {
+  padding: 15px;
+  border-radius: 5px;
+  /* width: 300px; */
+  bottom: 25px;
+  left: 25px;
+  position: absolute;
+  z-index: 40;
+  pointer-events: none;
+  background-color: #f8b229;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.waffles {
+  background-color: #f8b229;
+  width: 100px;
+  height: 100px;
 }

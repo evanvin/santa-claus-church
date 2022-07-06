@@ -116,6 +116,8 @@ L.Marker.MovingMarker = L.Marker.extend({
       return;
     }
 
+    this._map.setView(this.getLatLng(), 7);
+
     this._follow = true;
   },
 
@@ -268,7 +270,8 @@ L.Marker.MovingMarker = L.Marker.extend({
     if (this._infoPanel) {
       let station = this._stationInfo[this._currentIndex];
       this._infoPanel.nextStopCityRegion.innerHTML = `${station.city}, ${station.region}`;
-      this._infoPanel.population.innerHTML = station.population;
+      this._infoPanel.population.innerHTML =
+        station.population.toLocaleString('en-US');
       this._infoPanel.presentsDelivered.innerHTML =
         station.presentsDeliveredAtLastLocation;
     }
@@ -278,8 +281,8 @@ L.Marker.MovingMarker = L.Marker.extend({
     if (this._infoPanel && !this._isAtStation) {
       let station = this._stationInfo[this._currentIndex];
       this._infoPanel.nextStopCityRegion.innerHTML = `${station.city}, ${station.region}`;
-      this._infoPanel.population.innerHTML = station.population;
-      console.log(this._stations[this._currentIndex + 1]);
+      this._infoPanel.population.innerHTML =
+        station.population.toLocaleString('en-US');
       this._animatePresentCounter(
         this._infoPanel.presentsDelivered,
         station.presentsDeliveredAtLastLocation,
@@ -307,7 +310,9 @@ L.Marker.MovingMarker = L.Marker.extend({
       const progress = Math.min((currentTime - startTime) / duration, 1);
 
       //calculate what to be displayed using the value gotten above
-      obj.innerHTML = Math.floor(progress * (lastVal - initVal) + initVal);
+      obj.innerHTML = Math.floor(
+        progress * (lastVal - initVal) + initVal
+      ).toLocaleString('en-US');
 
       //checking to make sure the counter does not exceed the last value (lastVal)
       if (progress < 1) {

@@ -1,19 +1,13 @@
 // ELEMENTS
 let sleigh;
-let followButton = document.getElementById('follow');
+// let followButton = document.getElementById('follow');
 let isFollowing = false;
 
-// Listeners
-followButton.addEventListener('click', toggleFollow);
-
 // Map Initilization
-var southWest = L.latLng(-89.98155760646617, -180),
-  northEast = L.latLng(89.99346179538875, 180);
-// let southWest = L.latLng(-78.4662592, -167.9444468);
-// let northEast = L.latLng(84.8965515, 190.7751846);
-// southWest = L.latLng(-90, -180);
-// northEast = L.latLng(90, 180);
-var bounds = L.latLngBounds(southWest, northEast);
+var bounds = L.latLngBounds(
+  L.latLng(-89.98155760646617, -180), // Southwest
+  L.latLng(89.99346179538875, 180) // Northeast
+);
 var map = L.map('map', {
   maxBounds: bounds,
   maxBoundsViscosity: 1.0,
@@ -21,15 +15,30 @@ var map = L.map('map', {
   detectRetina: true,
 }).setView([84.6, 168], 3);
 document.getElementsByClassName('leaflet-control-attribution')[0].remove();
+var el = document.getElementById('infoPanel');
+L.DomEvent.disableScrollPropagation(el);
 
 L.tileLayer(
   'https://api.mapbox.com/styles/v1/evanvin/cl59rnki2000014s1jy5svp8t/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZXZhbnZpbiIsImEiOiJjam81dGg1MGwwZHdkM3ZwYWh5NHJmdWZ3In0.P3Gr9yuJvVVfy0ZvRHsWzA',
   {
     maxZoom: 19,
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Tiles style by <a href="https://www.hotosm.org/" target="_blank">Humanitarian OpenStreetMap Team</a> hosted by <a href="https://openstreetmap.fr/" target="_blank">OpenStreetMap France</a>',
+    attribution: 'Santa Claus Tracker',
   }
 ).addTo(map);
+
+// Follow Button
+let zoomControls = document.getElementsByClassName('leaflet-control-zoom')[0];
+let followSpan = document.createElement('span');
+followSpan.textContent = 'f';
+let followButton = document.createElement('a');
+followButton.classList.add('leaflet-control-zoom-out');
+followButton.setAttribute('role', 'button');
+followButton.setAttribute('title', 'Follow');
+followButton.setAttribute('aria-label', 'Follow');
+followButton.setAttribute('href', '#');
+followButton.appendChild(followSpan);
+zoomControls.appendChild(followButton);
+followButton.addEventListener('click', toggleFollow);
 
 var sleighIcon = L.icon({
   iconUrl: '../images/sleigh.png',
@@ -73,10 +82,10 @@ function startup() {
 function toggleFollow() {
   if (isFollowing) {
     sleigh.unfollow();
-    followButton.innerText = 'Follow';
+    followButton.textContent = 'f';
   } else {
     sleigh.follow();
-    followButton.innerText = 'Unfollow';
+    followButton.textContent = 'u';
   }
 
   isFollowing = !isFollowing;
