@@ -1,3 +1,21 @@
+Array.prototype.sample = function () {
+  return this[Math.floor(Math.random() * this.length)];
+};
+const STATION_ICONS = [
+  L.icon({
+    iconUrl: '../images/icons/markers/christmas-sock.png',
+    iconSize: [32, 32],
+  }),
+  L.icon({
+    iconUrl: '../images/icons/markers/christmas-wreath.png',
+    iconSize: [32, 32],
+  }),
+  L.icon({
+    iconUrl: '../images/icons/markers/gifts.png',
+    iconSize: [32, 32],
+  }),
+];
+
 L.interpolatePosition = function (p1, p2, duration, t) {
   var k = t / duration;
   k = k > 0 ? k : 0;
@@ -22,7 +40,7 @@ L.Marker.MovingMarker = L.Marker.extend({
     loop: false,
     autofollow: false,
     stationInfo: [],
-    infoPanel: {},
+    departureBoard: null,
   },
 
   initialize: function (latlngs, durations, options) {
@@ -51,7 +69,7 @@ L.Marker.MovingMarker = L.Marker.extend({
     this._stations = {};
     this._stationInfo = [];
     this._follow = false;
-    this._infoPanel = null;
+    this._departureBoard = null;
     this._presentsDelivered = 0;
     this._isAtStation = false;
   },
@@ -116,7 +134,7 @@ L.Marker.MovingMarker = L.Marker.extend({
       return;
     }
 
-    this._map.setView(this.getLatLng(), 7);
+    this._map.setView(this.getLatLng(), 6);
 
     this._follow = true;
   },
@@ -183,8 +201,8 @@ L.Marker.MovingMarker = L.Marker.extend({
       this._stationInfo = this.options.stationInfo;
     }
 
-    if (this.options.infoPanel) {
-      this._infoPanel = this.options.infoPanel;
+    if (this.options.departureBoard) {
+      this._departureBoard = this.options.departureBoard;
     }
 
     if (this.isRunning()) {
@@ -234,6 +252,12 @@ L.Marker.MovingMarker = L.Marker.extend({
     this._animRequested = true;
   },
 
+  _spaceHelper: function (left, right) {
+    width = this._departureBoard.getLetterCount();
+    right = right.padStart(width - left.length - 1, ' '); // +1 is for the colon
+    return `${left}:${right}`;
+  },
+
   _resumeAnimation: function () {
     if (!this._animRequested) {
       this._animRequested = true;
@@ -263,32 +287,77 @@ L.Marker.MovingMarker = L.Marker.extend({
     this._currentIndex = index;
     this._currentDuration = this._durations[index];
     this._currentLine = this._latlngs.slice(index, index + 2);
+    if (index > 0) {
+      L.marker(this._currentLine[0], { icon: STATION_ICONS.sample() }).addTo(
+        this._map
+      );
+    }
     this._updateFlightInfo();
   },
 
   _updateFlightInfo: function () {
-    if (this._infoPanel) {
+    if (this._departureBoard) {
       let station = this._stationInfo[this._currentIndex];
-      this._infoPanel.nextStopCityRegion.innerHTML = `${station.city}, ${station.region}`;
-      this._infoPanel.population.innerHTML =
-        station.population.toLocaleString('en-US');
-      this._infoPanel.presentsDelivered.innerHTML =
-        station.presentsDeliveredAtLastLocation;
+      let autc = station.arrivalUTC;
+      let nextCity = `${station.city}, ${station.region}`;
+      this._departureBoard.setValue([
+        this._spaceHelper('current', 'flying'),
+        this._spaceHelper('population', '-'),
+        this._spaceHelper(
+          'next stop',
+          nextCity.length > 34 ? station.city : nextCity
+        ),
+        this._spaceHelper(
+          'arrival time (utc)',
+          `${autc.hour}:${autc.minute.toString().padStart(2, '0')}`
+        ),
+        this._spaceHelper(
+          'presents delivered',
+          station.presentsDeliveredAtLastLocation.toLocaleString('en-US')
+        ),
+      ]);
     }
   },
 
   _updateDeliveryInfo: function () {
-    if (this._infoPanel && !this._isAtStation) {
+    if (this._departureBoard && !this._isAtStation) {
       let station = this._stationInfo[this._currentIndex];
-      this._infoPanel.nextStopCityRegion.innerHTML = `${station.city}, ${station.region}`;
-      this._infoPanel.population.innerHTML =
-        station.population.toLocaleString('en-US');
-      this._animatePresentCounter(
-        this._infoPanel.presentsDelivered,
-        station.presentsDeliveredAtLastLocation,
-        station.presentsDelivered,
-        this._stations[this._currentIndex + 1]
-      );
+      let boardValue = [
+        'Santa Claus has ended his yearly journey! Time for him and the',
+        'elves to rest up for a couple weeks before they start working',
+        'on next years order!',
+        '',
+        'Merry Christmas, and have a happy New Year!',
+      ];
+      if (station.id !== 'landing') {
+        let currentCity = `${station.city}, ${station.region}`;
+        let nextStation = this._stationInfo[this._currentIndex + 1];
+        let nextCity = `${nextStation.city}, ${nextStation.region}`;
+        let dutc = station.departureUTC;
+        boardValue = [
+          this._spaceHelper(
+            'current',
+            currentCity.length > 34 ? station.city : currentCity
+          ),
+          this._spaceHelper(
+            'population',
+            station.population.toLocaleString('en-US')
+          ),
+          this._spaceHelper(
+            'next stop',
+            nextCity.length > 34 ? nextStation.city : nextCity
+          ),
+          this._spaceHelper(
+            'departure time (utc)',
+            `${dutc.hour}:${dutc.minute.toString().padStart(2, '0')}`
+          ),
+          this._spaceHelper(
+            'presents delivered',
+            station.presentsDeliveredAtLastLocation.toLocaleString('en-US')
+          ),
+        ];
+      }
+      this._departureBoard.setValue(boardValue);
       this._isAtStation = true;
     }
   },

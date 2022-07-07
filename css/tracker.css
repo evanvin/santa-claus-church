@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+
 html,
 body,
 #map {
@@ -11,12 +13,12 @@ body,
   position: relative;
 }
 
-#follow {
+/* #follow {
   position: absolute;
   top: 25px;
   left: 25px;
   z-index: 42;
-}
+} */
 
 #infoPanel {
   padding: 15px;
@@ -31,8 +33,20 @@ body,
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-.waffles {
-  background-color: #f8b229;
-  width: 100px;
-  height: 100px;
+.info-board-container {
+  bottom: 25px;
+  position: absolute;
+  z-index: 40;
+  pointer-events: none;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+#info-board {
+  z-index: 40;
+  pointer-events: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }

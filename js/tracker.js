@@ -1,7 +1,17 @@
+Array.prototype.sample = function () {
+  return this[Math.floor(Math.random() * this.length)];
+};
+
+//EVENT LISTENERS
+
 // ELEMENTS
 let sleigh;
-// let followButton = document.getElementById('follow');
 let isFollowing = false;
+
+const board = new DepartureBoard(document.getElementById('info-board'), {
+  rowCount: 5,
+  letterCount: 48,
+});
 
 // Map Initilization
 var bounds = L.latLngBounds(
@@ -13,10 +23,9 @@ var map = L.map('map', {
   maxBoundsViscosity: 1.0,
   minZoom: 2,
   detectRetina: true,
-}).setView([84.6, 168], 3);
+}).setView([70.1170759479725, 26.30972185655632], 3);
 document.getElementsByClassName('leaflet-control-attribution')[0].remove();
 var el = document.getElementById('infoPanel');
-L.DomEvent.disableScrollPropagation(el);
 
 L.tileLayer(
   'https://api.mapbox.com/styles/v1/evanvin/cl59rnki2000014s1jy5svp8t/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZXZhbnZpbiIsImEiOiJjam81dGg1MGwwZHdkM3ZwYWh5NHJmdWZ3In0.P3Gr9yuJvVVfy0ZvRHsWzA',
@@ -41,7 +50,7 @@ zoomControls.appendChild(followButton);
 followButton.addEventListener('click', toggleFollow);
 
 var sleighIcon = L.icon({
-  iconUrl: '../images/sleigh.png',
+  iconUrl: '../images/icons/markers/sleigh.png',
   iconSize: [32, 32],
 });
 
@@ -60,11 +69,7 @@ function startup() {
       sleigh = L.Marker.movingMarker(data.routes, data.durations, {
         icon: sleighIcon,
         stationInfo: data.stations,
-        infoPanel: {
-          population: document.getElementById('population'),
-          presentsDelivered: document.getElementById('presentsDelivered'),
-          nextStopCityRegion: document.getElementById('nextStopCityRegion'),
-        },
+        departureBoard: board,
       }).addTo(map);
       for (let i = 0; i < data.stations.length; i++) {
         sleigh.addStation(i + 1, data.stations[i].stationDuration);
