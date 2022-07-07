@@ -9,7 +9,7 @@ let sleigh;
 let isFollowing = false;
 
 const board = new DepartureBoard(document.getElementById('info-board'), {
-  rowCount: 5,
+  rowCount: 7,
   letterCount: 48,
 });
 

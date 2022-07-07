@@ -300,9 +300,14 @@ L.Marker.MovingMarker = L.Marker.extend({
       let station = this._stationInfo[this._currentIndex];
       let autc = station.arrivalUTC;
       let nextCity = `${station.city}, ${station.region}`;
+      let presents = 'presents delivered'.padStart(
+        this._departureBoard.getLetterCount() - 17,
+        ' '
+      );
       this._departureBoard.setValue([
         this._spaceHelper('current', 'flying'),
         this._spaceHelper('population', '-'),
+        '',
         this._spaceHelper(
           'next stop',
           nextCity.length > 34 ? station.city : nextCity
@@ -311,8 +316,9 @@ L.Marker.MovingMarker = L.Marker.extend({
           'arrival time (utc)',
           `${autc.hour}:${autc.minute.toString().padStart(2, '0')}`
         ),
+        '',
         this._spaceHelper(
-          'presents delivered',
+          presents,
           station.presentsDeliveredAtLastLocation.toLocaleString('en-US')
         ),
       ]);
@@ -334,6 +340,10 @@ L.Marker.MovingMarker = L.Marker.extend({
         let nextStation = this._stationInfo[this._currentIndex + 1];
         let nextCity = `${nextStation.city}, ${nextStation.region}`;
         let dutc = station.departureUTC;
+        let presents = 'presents delivered'.padStart(
+          this._departureBoard.getLetterCount() - 17,
+          ' '
+        );
         boardValue = [
           this._spaceHelper(
             'current',
@@ -343,6 +353,7 @@ L.Marker.MovingMarker = L.Marker.extend({
             'population',
             station.population.toLocaleString('en-US')
           ),
+          '',
           this._spaceHelper(
             'next stop',
             nextCity.length > 34 ? nextStation.city : nextCity
@@ -351,8 +362,9 @@ L.Marker.MovingMarker = L.Marker.extend({
             'departure time (utc)',
             `${dutc.hour}:${dutc.minute.toString().padStart(2, '0')}`
           ),
+          '',
           this._spaceHelper(
-            'presents delivered',
+            presents,
             station.presentsDeliveredAtLastLocation.toLocaleString('en-US')
           ),
         ];
