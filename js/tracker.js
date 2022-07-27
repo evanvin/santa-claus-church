@@ -58,6 +58,8 @@ var sleighIcon = L.icon({
 function startup() {
   url =
     'https://cors-anywhere.herokuapp.com/https://clovereartquakedog.pythonanywhere.com/santa/route/58';
+  url =
+    'https://clovereartquakedog.pythonanywhere.com/santa/route/58';
   $.ajax({
     headers: { Accept: 'application/json' },
     type: 'GET',

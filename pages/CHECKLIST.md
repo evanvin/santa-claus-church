@@ -16,6 +16,7 @@
   - [ ] Remove proxy stuff
   - [X] Update how presents delivered is at start
   - [X] Switch map tiles to a free one since mapbox is keeping track of my tile usage
+- [X] Update email subscribe endpoint
 - [ ]
 
 ```html

@@ -507,25 +507,22 @@
             <p>Want to hear more about the great adventures of Santa Claus?</p>
             <div>
               <div>
-                <form
-                  action="https://clovereartquakedog.pythonanywhere.com/santa/email/sub"
+                <div
                   class="subscribe-form"
-                  method="POST"
                 >
                   <div class="form-group d-flex">
                     <input
                       type="text"
                       class="form-control"
+                      id="email-input"
                       placeholder="Enter email address"
                       name="email"
                     />
-                    <input
-                      type="submit"
-                      value="Subscribe"
-                      class="submit px-3"
-                    />
+                    <button id="submit" value="Subscribe" class="submit px-3">
+                      Submit
+                    </button>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>

@@ -1,3 +1,32 @@
+function Subscribe() {
+  let emailInput = document.getElementById('email-input');
+  let val = emailInput.value;
+  emailInput.value = 'Thank You!';
+
+  let submitButton = document.getElementById('submit');
+  submitButton.disabled = true;
+
+  url =
+    'https://cors-anywhere.herokuapp.com/https://clovereartquakedog.pythonanywhere.com/santa/email/sub';
+  url = 'https://clovereartquakedog.pythonanywhere.com/santa/email/sub';
+  $.ajax({
+    headers: { Accept: 'application/json' },
+    type: 'POST',
+    url: url,
+    data: {
+      email: val,
+    },
+    dataType: 'json',
+    success: function (data, textStatus, request) {
+      console.log(emailInput.value);
+      submitButton.disabled = false;
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      submitButton.disabled = false;
+    },
+  });
+}
+
 function CountdownTime() {
   // Get Santa Lift off Date
   let santaLiftOff = new Date(Date.UTC('Dec 24, 1992 21:00:00'));
@@ -20,6 +49,8 @@ setTimeout(function () {
   document.getElementsByClassName('jingle-bells-video')[0].muted = false;
   document.getElementsByClassName('jingle-bells-video')[0].play();
 }, 2000);
+
+document.getElementById('submit').addEventListener('click', Subscribe);
 
 /*
 let sinatraVideo = document.getElementById('sinatra');
