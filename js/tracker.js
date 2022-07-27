@@ -28,7 +28,8 @@ document.getElementsByClassName('leaflet-control-attribution')[0].remove();
 var el = document.getElementById('infoPanel');
 
 L.tileLayer(
-  'https://api.mapbox.com/styles/v1/evanvin/cl59rnki2000014s1jy5svp8t/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZXZhbnZpbiIsImEiOiJjam81dGg1MGwwZHdkM3ZwYWh5NHJmdWZ3In0.P3Gr9yuJvVVfy0ZvRHsWzA',
+  // 'https://api.mapbox.com/styles/v1/evanvin/cl59rnki2000014s1jy5svp8t/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZXZhbnZpbiIsImEiOiJjam81dGg1MGwwZHdkM3ZwYWh5NHJmdWZ3In0.P3Gr9yuJvVVfy0ZvRHsWzA',
+  'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
   {
     maxZoom: 19,
     attribution: 'Santa Claus Tracker',

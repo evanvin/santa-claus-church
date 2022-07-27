@@ -12,7 +12,6 @@ var DepartureBoard = function (element, options) {
     letter,
     rowElement;
 
-  console.log('>', letterCount);
   this._letterCount = letterCount;
 
   for (var r = 0; r < rowCount; r++) {

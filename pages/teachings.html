@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The teachings and beliefs of the Church of Santa Claus."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="keywords"
+      content="santa, claus, saint, nicholas, church, nick, jolly, reindeer, teachings"
+    />
+    <meta name="language" content="English" />
+    <meta content="Santa Claus's Teachings" property="og:title" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="revisit-after" content="15 days" />
+    <meta content="summary" name="twitter:card" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="title" content="Santa Claus's Teachings" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#18a76b" />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../images/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../images/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../images/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="../images/favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="../images/favicon/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Santa Claus's Teachings</title>
+  </head>
+
+  <body class="bg-emerald-400 tracking-wider tracking-normal">
+    <nav id="header" class="fixed w-full z-10 top-0 bg-emerald-400">
+      <div
+        class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-4"
+      >
+        <div class="pl-4 flex items-center">
+          <a
+            class="text-base no-underline hover:no-underline"
+            href="../index.html"
+          >
+            <svg
+              class="h-5 pr-3 fill-current text-rose-600"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 493.578 493.578"
+            >
+              <path
+                d="M487.267,225.981c0-17.365-13.999-31.518-31.518-31.518H194.501L305.35,83.615c12.24-12.24,12.24-32.207,0-44.676   L275.592,9.18c-12.24-12.24-32.207-12.24-44.676,0L15.568,224.527c-6.12,6.12-9.256,14.153-9.256,22.262   c0,8.032,3.136,16.142,9.256,22.262l215.348,215.348c12.24,12.239,32.207,12.239,44.676,0l29.758-29.759   c12.24-12.24,12.24-32.207,0-44.676L194.501,299.498h261.094c17.366,0,31.519-14.153,31.519-31.519L487.267,225.981z"
+              />
+            </svg>
+          </a>
+          <a
+            class="text-rose-600 text-base no-underline hover:no-underline font-extrabold text-xl"
+            href="../index.html"
+          >
+            Go Back
+          </a>
+        </div>
+      </div>
+    </nav>
+    <!--Container-->
+    <div
+      class="container w-full flex flex-wrap mx-auto px-2 pt-8 lg:pt-16 mt-8"
+    >
+      <div class="w-full lg:w-1/5 lg:px-6 text-xl text-gray-800 leading-normal">
+        <div class="block lg:hidden sticky inset-0">
+          <button
+            id="menu-toggle"
+            class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-purple-500 appearance-none focus:outline-none"
+          >
+            <svg
+              class="fill-current h-3 float-right"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="w-full sticky inset-0 hidden h-64 lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 border border-gray-400 lg:border-transparent bg-white shadow lg:shadow-none lg:bg-transparent z-20"
+          style="top: 5em"
+          id="menu-content"
+        >
+          <ul class="list-reset">
+            <li
+              class="py-2 md:my-0 hover:bg-purple-100 lg:hover:bg-transparent"
+            >
+              <a
+                href="#"
+                class="block pl-4 align-middle text-slate-50 no-underline hover:text-rose-400 border-l-4 border-transparent lg:border-rose-400 lg:hover:border-rose-400"
+                onclick="changeTeaching(0)"
+              >
+                <span class="pb-1 md:pb-0 text-sm text-rose-500 font-bold"
+                  >Book of Claus</span
+                >
+              </a>
+            </li>
+            <li
+              class="py-2 md:my-0 hover:bg-purple-100 lg:hover:bg-transparent"
+            >
+              <a
+                href="#"
+                class="block pl-4 align-middle text-slate-50 no-underline hover:text-rose-400 border-l-4 border-transparent lg:hover:border-gray-400"
+                onclick="changeTeaching(1)"
+              >
+                <span class="pb-1 md:pb-0 text-sm">Music</span>
+              </a>
+            </li>
+            <li
+              class="py-2 md:my-0 hover:bg-purple-100 lg:hover:bg-transparent"
+            >
+              <a
+                href="#"
+                class="block pl-4 align-middle text-slate-50 no-underline hover:text-rose-400 border-l-4 border-transparent lg:hover:border-gray-400"
+                onclick="changeTeaching(2)"
+              >
+                <span class="pb-1 md:pb-0 text-sm">Recipes</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="w-full lg:w-4/5 p-8 mt-6 lg:mt-0 text-gray-900 leading-normal bg-slate-50 border border-gray-400 border-rounded mb-10"
+      >
+        <!--Title-->
+        <div class="font-sans">
+          <h1
+            id="teaching-title"
+            class="font-serif break-normal text-gray-900 pb-2 text-4xl text-center"
+          >
+            The Book of Claus
+          </h1>
+          <hr class="border-b border-gray-400 m-10" />
+        </div>
+
+        <!-- Teaching 0 -->
+        <div class="teaching-content" id="teaching-0">
+          <ol>
+            <li class="py-3">
+              Maecenas accumsan lacus sit amet elementum porta. Aliquam eu
+              libero lectus. Fusce vehicula dictum mi. In non dolor at sem
+              ullamcorper venenatis ut sed dui. Ut ut est quam. Suspendisse quam
+              quam, commodo sit amet placerat in, interdum a ipsum. Morbi sit
+              amet tellus scelerisque tortor semper posuere.
+            </li>
+            <li class="py-3">
+              Morbi varius posuere blandit. Praesent gravida bibendum neque eget
+              commodo. Duis auctor ornare mauris, eu accumsan odio viverra in.
+              Proin sagittis maximus pharetra. Nullam lorem mauris, faucibus ut
+              odio tempus, ultrices aliquet ex. Nam id quam eget ipsum luctus
+              hendrerit. Ut eros magna, eleifend ac ornare vulputate, pretium
+              nec felis.
+            </li>
+            <li class="py-3">
+              Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+              posuere cubilia Curae; Nunc vitae pretium elit. Cras leo mauris,
+              tristique in risus ac, tristique rutrum velit. Mauris accumsan
+              tempor felis vitae gravida. Cras egestas convallis malesuada.
+              Etiam ac ante id tortor vulputate pretium. Maecenas vel sapien
+              suscipit, elementum odio et, consequat tellus.
+            </li>
+          </ol>
+          <blockquote
+            class="border-l-4 border-purple-500 italic my-8 pl-8 md:pl-12"
+          >
+            Example of blockquote - Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit
+            amet ligula.
+          </blockquote>
+        </div>
+        <!--/ Post Teaching 0-->
+        <!-- Teaching 1 -->
+        <div class="teaching-content hidden" id="teaching-1">
+          <ol>
+            <li class="py-3">
+              Morbi varius posuere blandit. Praesent gravida bibendum neque eget
+              commodo. Duis auctor ornare mauris, eu accumsan odio viverra in.
+              Proin sagittis maximus pharetra. Nullam lorem mauris, faucibus ut
+              odio tempus, ultrices aliquet ex. Nam id quam eget ipsum luctus
+              hendrerit. Ut eros magna, eleifend ac ornare vulputate, pretium
+              nec felis.
+            </li>
+            <li class="py-3">
+              Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+              posuere cubilia Curae; Nunc vitae pretium elit. Cras leo mauris,
+              tristique in risus ac, tristique rutrum velit. Mauris accumsan
+              tempor felis vitae gravida. Cras egestas convallis malesuada.
+              Etiam ac ante id tortor vulputate pretium. Maecenas vel sapien
+              suscipit, elementum odio et, consequat tellus.
+            </li>
+          </ol>
+          <blockquote
+            class="border-l-4 border-purple-500 italic my-8 pl-8 md:pl-12"
+          >
+            Example of blockquote - Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit
+            amet ligula.
+          </blockquote>
+        </div>
+        <!--/ Post Teaching 1-->
+        <!-- Teaching 2 -->
+        <div class="teaching-content hidden" id="teaching-2">
+          <ol>
+            <li class="py-3">
+              Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+              posuere cubilia Curae; Nunc vitae pretium elit. Cras leo mauris,
+              tristique in risus ac, tristique rutrum velit. Mauris accumsan
+              tempor felis vitae gravida. Cras egestas convallis malesuada.
+              Etiam ac ante id tortor vulputate pretium. Maecenas vel sapien
+              suscipit, elementum odio et, consequat tellus.
+            </li>
+          </ol>
+          <blockquote
+            class="border-l-4 border-purple-500 italic my-8 pl-8 md:pl-12"
+          >
+            Example of blockquote - Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit
+            amet ligula.
+          </blockquote>
+        </div>
+        <!--/ Post Teaching 2-->
+      </div>
+    </div>
+    <!--/container-->
+  </body>
+
+  <script src="../js/teachings.js"></script>
+</html>
