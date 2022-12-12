@@ -1,3 +1,8 @@
+const sleighBellsAudio = new Audio('../sound/sleigh_bells.wav');
+sleighBellsAudio.volume = 0.3;
+sleighBellsAudio.loop = true;
+
+
 Array.prototype.sample = function () {
   return this[Math.floor(Math.random() * this.length)];
 };
@@ -69,6 +74,7 @@ L.Marker.MovingMarker = L.Marker.extend({
     this._stations = {};
     this._stationInfo = [];
     this._follow = false;
+    this._play_sound = true;
     this._departureBoard = null;
     this._presentsDelivered = 0;
     this._isAtStation = false;
@@ -92,6 +98,10 @@ L.Marker.MovingMarker = L.Marker.extend({
 
   isFollowing: function () {
     return this._follow;
+  },
+
+  isPlayingSound: function () {
+    return this._play_sound;
   },
 
   start: function () {
@@ -145,6 +155,28 @@ L.Marker.MovingMarker = L.Marker.extend({
     }
 
     this._follow = false;
+  },
+
+  muteSound: function () {
+    if (!this.isPlayingSound()) {
+      return;
+    }
+
+    // stop playing sound
+    sleighBellsAudio.pause();
+
+    this._play_sound = false;
+  },
+
+  playSound: function () {
+    if (this.isPlayingSound()) {
+      return;
+    }
+
+    // start playing sound
+    sleighBellsAudio.play();
+    sleighBellsAudio.loop = true;
+    this._play_sound = true;
   },
 
   stop: function (elapsedTime) {

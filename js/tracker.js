@@ -7,6 +7,7 @@ Array.prototype.sample = function () {
 // ELEMENTS
 let sleigh;
 let isFollowing = false;
+let isPlayingSound = false;
 
 const board = new DepartureBoard(document.getElementById('info-board'), {
   rowCount: 7,
@@ -50,38 +51,89 @@ followButton.appendChild(followSpan);
 zoomControls.appendChild(followButton);
 followButton.addEventListener('click', toggleFollow);
 
+// Sound Button
+let soundSpan = document.createElement('span');
+soundSpan.textContent = '🔇';
+let soundButton = document.createElement('a');
+soundButton.classList.add('leaflet-control-zoom-out');
+soundButton.setAttribute('role', 'button');
+soundButton.setAttribute('title', 'Sound');
+soundButton.setAttribute('aria-label', 'Sound');
+soundButton.setAttribute('href', '#');
+soundButton.appendChild(soundSpan);
+zoomControls.appendChild(soundButton);
+soundButton.addEventListener('click', toggleSound);
+
 var sleighIcon = L.icon({
   iconUrl: '../images/icons/markers/sleigh.png',
   iconSize: [32, 32],
 });
 
-function startup() {
-  url =
-    'https://cors-anywhere.herokuapp.com/https://clovereartquakedog.pythonanywhere.com/santa/route/58';
-  url =
-    'https://clovereartquakedog.pythonanywhere.com/santa/route/58';
-  $.ajax({
-    headers: { Accept: 'application/json' },
-    type: 'GET',
-    url: url,
-    // crossDomain: true,
-    beforeSend: function (xhr) {
-      xhr.withCredentials = true;
-    },
-    success: function (data, textStatus, request) {
-      sleigh = L.Marker.movingMarker(data.routes, data.durations, {
-        icon: sleighIcon,
-        stationInfo: data.stations,
-        departureBoard: board,
-      }).addTo(map);
-      for (let i = 0; i < data.stations.length; i++) {
-        sleigh.addStation(i + 1, data.stations[i].stationDuration);
-      }
-      // sleigh.bindPopup('I am a circle.');
+function getCurrentTimeInSecs() {
+  let santaLiftOff = new Date(Date.UTC(1992, 11, 24, 21, 0, 0));
+  let santaNextDayBuffer = new Date(Date.UTC(1992, 11, 25, 22, 0, 1));
 
-      sleigh.start();
-    },
-  });
+  // Get todays date
+  let now = new Date();
+  let currentYear = now.getFullYear();
+
+  // Set santaLiftOff year
+  santaLiftOff.setFullYear(currentYear);
+
+  // Set santaNextDayBuffer year
+  santaNextDayBuffer.setFullYear(currentYear + 1);
+
+  if (now > santaLiftOff) {
+    // Santa has started his night
+
+    if (now > santaNextDayBuffer) {
+      // Santa has finished
+      return -1;
+    }
+
+    // Santa is still delivering
+    let dif = now.getTime() - santaLiftOff.getTime();
+
+    let seconds = dif / 1000;
+    return Math.abs(seconds);
+  }
+
+  return -1;
+}
+
+function startup() {
+  let seconds = getCurrentTimeInSecs();
+
+  if (seconds < 0) {
+    // Santa hasn't left yet
+    board.setValue(["Ho Ho Ho! Santa hasn't left yet...","","Come back around 8PM UTC time on the 24th!"])
+  } else {
+    // Santa is in flight
+    url =
+      'https://cors-anywhere.herokuapp.com/https://clovereartquakedog.pythonanywhere.com/santa/route/58';
+    url = `https://clovereartquakedog.pythonanywhere.com/santa/route/${seconds}`;
+    $.ajax({
+      headers: { Accept: 'application/json' },
+      type: 'GET',
+      url: url,
+      // crossDomain: true,
+      beforeSend: function (xhr) {
+        xhr.withCredentials = true;
+      },
+      success: function (data, textStatus, request) {
+        sleigh = L.Marker.movingMarker(data.routes, data.durations, {
+          icon: sleighIcon,
+          stationInfo: data.stations,
+          departureBoard: board,
+        }).addTo(map);
+        for (let i = 0; i < data.stations.length; i++) {
+          sleigh.addStation(i + 1, data.stations[i].stationDuration);
+        }
+
+        sleigh.start();
+      },
+    });
+  }
 }
 
 // --------------------------------------------------
@@ -97,6 +149,18 @@ function toggleFollow() {
   }
 
   isFollowing = !isFollowing;
+}
+
+function toggleSound() {
+  if (isPlayingSound) {
+    sleigh.muteSound();
+    soundButton.textContent = '🔇';
+  } else {
+    sleigh.playSound();
+    soundButton.textContent = '🔈';
+  }
+
+  isPlayingSound = !isPlayingSound;
 }
 
 startup();
