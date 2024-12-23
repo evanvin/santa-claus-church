@@ -1,22 +1,21 @@
-const sleighBellsAudio = new Audio('../sound/sleigh_bells.wav');
+const sleighBellsAudio = new Audio("../sound/sleigh_bells.wav");
 sleighBellsAudio.volume = 0.3;
 sleighBellsAudio.loop = true;
-
 
 Array.prototype.sample = function () {
   return this[Math.floor(Math.random() * this.length)];
 };
 const STATION_ICONS = [
   L.icon({
-    iconUrl: '../images/icons/markers/christmas-sock.png',
+    iconUrl: "../images/icons/markers/christmas-sock.png",
     iconSize: [32, 32],
   }),
   L.icon({
-    iconUrl: '../images/icons/markers/christmas-wreath.png',
+    iconUrl: "../images/icons/markers/christmas-wreath.png",
     iconSize: [32, 32],
   }),
   L.icon({
-    iconUrl: '../images/icons/markers/gifts.png',
+    iconUrl: "../images/icons/markers/gifts.png",
     iconSize: [32, 32],
   }),
 ];
@@ -114,7 +113,7 @@ L.Marker.MovingMarker = L.Marker.extend({
     } else {
       this._loadLine(0);
       this._startAnimation();
-      this.fire('start');
+      this.fire("start");
     }
   },
 
@@ -186,14 +185,14 @@ L.Marker.MovingMarker = L.Marker.extend({
 
     this._stopAnimation();
 
-    if (typeof elapsedTime === 'undefined') {
+    if (typeof elapsedTime === "undefined") {
       // user call
       elapsedTime = 0;
       this._updatePosition();
     }
 
     this._state = L.Marker.MovingMarker.endedState;
-    this.fire('end', { elapsedTime: elapsedTime });
+    this.fire("end", { elapsedTime: elapsedTime });
   },
 
   addLatLng: function (latlng, duration) {
@@ -286,7 +285,7 @@ L.Marker.MovingMarker = L.Marker.extend({
 
   _spaceHelper: function (left, right) {
     width = this._departureBoard.getLetterCount();
-    right = right.padStart(width - left.length - 1, ' '); // +1 is for the colon
+    right = right.padStart(width - left.length - 1, " "); // +1 is for the colon
     return `${left}:${right}`;
   },
 
@@ -332,74 +331,90 @@ L.Marker.MovingMarker = L.Marker.extend({
       let station = this._stationInfo[this._currentIndex];
       let autc = station.arrivalUTC;
       let nextCity = `${station.city}, ${station.region}`;
-      let presents = 'presents delivered'.padStart(
+      let presents = "presents delivered".padStart(
         this._departureBoard.getLetterCount() - 17,
-        ' '
+        " "
       );
       this._departureBoard.setValue([
-        this._spaceHelper('current', 'flying'),
-        this._spaceHelper('population', '-'),
-        '',
+        this._spaceHelper("current", "flying"),
+        this._spaceHelper("population", "-"),
+        "",
         this._spaceHelper(
-          'next stop',
+          "next stop",
           nextCity.length > 34 ? station.city : nextCity
         ),
         this._spaceHelper(
-          'arrival time (utc)',
-          `${autc.hour}:${autc.minute.toString().padStart(2, '0')}`
+          "arrival time (utc)",
+          `${autc.hour}:${autc.minute.toString().padStart(2, "0")}`
         ),
-        '',
+        "",
         this._spaceHelper(
           presents,
-          station.presentsDeliveredAtLastLocation.toLocaleString('en-US')
+          station.presentsDeliveredAtLastLocation.toLocaleString("en-US")
         ),
       ]);
+
+      this._departureBoard.setMobileValue(
+        false,
+        null,
+        "Flying",
+        "-",
+        nextCity.length > 34 ? station.city : nextCity,
+        `${autc.hour}:${autc.minute.toString().padStart(2, "0")}`,
+        station.presentsDeliveredAtLastLocation.toLocaleString("en-US")
+      );
     }
   },
 
   _updateDeliveryInfo: function () {
     if (this._departureBoard && !this._isAtStation) {
       let station = this._stationInfo[this._currentIndex];
-      let boardValue = [
-        'Santa Claus has ended his yearly journey! Time for him and the',
-        'elves to rest up for a couple weeks before they start working',
-        'on next years order!',
-        '',
-        'Merry Christmas, and have a happy New Year!',
-      ];
-      if (station.id !== 'landing') {
+      let boardValue = [];
+      if (station.id !== "landing") {
         let currentCity = `${station.city}, ${station.region}`;
         let nextStation = this._stationInfo[this._currentIndex + 1];
         let nextCity = `${nextStation.city}, ${nextStation.region}`;
         let dutc = station.departureUTC;
-        let presents = 'presents delivered'.padStart(
+        let presents = "presents delivered".padStart(
           this._departureBoard.getLetterCount() - 17,
-          ' '
+          " "
         );
         boardValue = [
           this._spaceHelper(
-            'current',
+            "current",
             currentCity.length > 34 ? station.city : currentCity
           ),
           this._spaceHelper(
-            'population',
-            station.population.toLocaleString('en-US')
+            "population",
+            station.population.toLocaleString("en-US")
           ),
-          '',
+          "",
           this._spaceHelper(
-            'next stop',
+            "next stop",
             nextCity.length > 34 ? nextStation.city : nextCity
           ),
           this._spaceHelper(
-            'departure time (utc)',
-            `${dutc.hour}:${dutc.minute.toString().padStart(2, '0')}`
+            "departure time (utc)",
+            `${dutc.hour}:${dutc.minute.toString().padStart(2, "0")}`
           ),
-          '',
+          "",
           this._spaceHelper(
             presents,
-            station.presentsDeliveredAtLastLocation.toLocaleString('en-US')
+            station.presentsDeliveredAtLastLocation.toLocaleString("en-US")
           ),
         ];
+
+        this._departureBoard.setMobileValue(
+          false,
+          null,
+          currentCity.length > 34 ? station.city : currentCity,
+          station.population.toLocaleString("en-US"),
+          nextCity.length > 34 ? nextStation.city : nextCity,
+          `${dutc.hour}:${dutc.minute.toString().padStart(2, "0")}`,
+          station.presentsDeliveredAtLastLocation.toLocaleString("en-US")
+        );
+      } else {
+        this._departureBoard.setMobileValue(true, boardValue);
       }
       this._departureBoard.setValue(boardValue);
       this._isAtStation = true;
@@ -425,7 +440,7 @@ L.Marker.MovingMarker = L.Marker.extend({
       //calculate what to be displayed using the value gotten above
       obj.innerHTML = Math.floor(
         progress * (lastVal - initVal) + initVal
-      ).toLocaleString('en-US');
+      ).toLocaleString("en-US");
 
       //checking to make sure the counter does not exceed the last value (lastVal)
       if (progress < 1) {
@@ -478,7 +493,7 @@ L.Marker.MovingMarker = L.Marker.extend({
       if (lineIndex >= this._latlngs.length - 1) {
         if (this.options.loop) {
           lineIndex = 0;
-          this.fire('loop', { elapsedTime: elapsedTime });
+          this.fire("loop", { elapsedTime: elapsedTime });
         } else {
           // place the marker at the end, else it would be at
           // the last position

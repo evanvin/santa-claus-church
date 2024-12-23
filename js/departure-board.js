@@ -1,11 +1,12 @@
 // Source: https://github.com/paulcuth/departure-board
-var DepartureBoard = function (element, options) {
+var DepartureBoard = function (element, mobileElement, options) {
   options = options || {};
 
   this._element = element;
+  this._mobileElement = mobileElement;
   this._letters = [];
 
-  element.className += ' departure-board';
+  element.className += " departure-board";
 
   var rowCount = options.rowCount || 1,
     letterCount = options.letterCount || 25,
@@ -17,8 +18,8 @@ var DepartureBoard = function (element, options) {
   for (var r = 0; r < rowCount; r++) {
     this._letters.push([]);
 
-    rowElement = document.createElement('div');
-    rowElement.className = 'row';
+    rowElement = document.createElement("div");
+    rowElement.className = "row";
     element.appendChild(rowElement);
 
     for (var l = 0; l < letterCount; l++) {
@@ -52,12 +53,12 @@ DepartureBoard.prototype.setValue = function (value) {
   var me = this;
 
   for (var r = 0, rl = this._letters.length; r < rl; r++) {
-    value[r] = value[r] ? value[r].toUpperCase() : '';
+    value[r] = value[r] ? value[r].toUpperCase() : "";
 
     for (var i = 0, l = this._letters[r].length; i < l; i++) {
       (function (r, i) {
         window.setTimeout(function () {
-          var letterValue = value[r].substr(i, 1) || '';
+          var letterValue = value[r].substr(i, 1) || "";
           me._letters[r][i].setValue(letterValue);
         }, 1000 * r + 25 * i + Math.random() * 400);
       })(r, i);
@@ -65,42 +66,117 @@ DepartureBoard.prototype.setValue = function (value) {
   }
 };
 
-DepartureBoard.Letter = function () {
-  this._element = document.createElement('span');
-  this._element.className = 'letter';
+DepartureBoard.prototype.setMobileValue = function (
+  isMessage,
+  messageLines,
+  currentStop,
+  population,
+  nextStop,
+  time,
+  presentsDelivered
+) {
+  var me = this;
+  const lines = [];
 
-  this._bottom = document.createElement('span');
-  this._bottom.className = 'flap bottom';
+  const messageElement = document.querySelector(
+    "#mobile-info-board > div.mobile-main-message"
+  );
+
+  const tripDetailElement = document.querySelector(
+    "#mobile-info-board > div.mobile-trip-details"
+  );
+
+  if (!isMessage) {
+    // hide main message
+    messageElement.classList.toggle("hide");
+
+    const isFlying = currentStop == "Flying";
+
+    // Add trip details
+    // current status/stop
+    document.querySelector(
+      "#mobile-info-board > div.mobile-trip-details > div.current-stop > div.value"
+    ).textContent = currentStop;
+
+    // population
+    document.querySelector(
+      "#mobile-info-board > div.mobile-trip-details > div.population > div.value"
+    ).textContent = population;
+
+    // next stop
+    document.querySelector(
+      "#mobile-info-board > div.mobile-trip-details > div.next-stop > div.value"
+    ).textContent = nextStop;
+
+    // time
+    document.querySelector(
+      "#mobile-info-board > div.mobile-trip-details > div.time > div.key"
+    ).textContent = isFlying ? "Arrival Time (UTC):" : "Departure Time (UTC):";
+
+    document.querySelector(
+      "#mobile-info-board > div.mobile-trip-details > div.time > div.value"
+    ).textContent = time;
+
+    // presents
+    document.querySelector(
+      "#mobile-info-board > div.mobile-trip-details > div.presents-delivered > div.value"
+    ).textContent = presentsDelivered;
+  } else {
+    // hide trip details
+    tripDetailElement.classList.toggle("hide");
+
+    messageElement.innerHTML = "";
+
+    for (let idx = 0; idx < messageLines.length; idx++) {
+      if (messageLines[idx] !== "") {
+        let tmp = document.createElement("div");
+        tmp.textContent = messageLines[idx];
+        messageElement.appendChild(tmp);
+      }
+    }
+  }
+
+  for (let idx = 0; idx < lines.length; idx++) {
+    me._mobileElement.appendChild(lines[idx]);
+  }
+};
+
+DepartureBoard.Letter = function () {
+  this._element = document.createElement("span");
+  this._element.className = "letter";
+
+  this._bottom = document.createElement("span");
+  this._bottom.className = "flap bottom";
   this._element.appendChild(this._bottom);
 
-  this._bottomText = document.createElement('span');
-  this._bottomText.className = 'text';
+  this._bottomText = document.createElement("span");
+  this._bottomText.className = "text";
   this._bottom.appendChild(this._bottomText);
 
-  this._top = document.createElement('span');
-  this._top.className = 'flap top';
+  this._top = document.createElement("span");
+  this._top.className = "flap top";
   this._element.appendChild(this._top);
 
-  this._topText = document.createElement('span');
-  this._topText.className = 'text';
+  this._topText = document.createElement("span");
+  this._topText.className = "text";
   this._top.appendChild(this._topText);
 
-  this._fold = document.createElement('span');
-  this._fold.className = 'fold';
+  this._fold = document.createElement("span");
+  this._fold.className = "fold";
   this._element.appendChild(this._fold);
 
-  this._falling = document.createElement('span');
-  this._falling.className = 'flap falling';
+  this._falling = document.createElement("span");
+  this._falling.className = "flap falling";
   this._fold.appendChild(this._falling);
 
-  this._fallingText = document.createElement('span');
-  this._fallingText.className = 'text';
+  this._fallingText = document.createElement("span");
+  this._fallingText.className = "text";
 
   this._fallingText.style.WebkitTransitionDuration =
     this._fallingText.style.MozTransitionDuration =
     this._fallingText.style.OTransitionDuration =
     this._fallingText.style.transitionDuration =
-      DepartureBoard.Letter.DROP_TIME * 0.5 + 'ms';
+      DepartureBoard.Letter.DROP_TIME * 0.5 + "ms";
 
   this._falling.appendChild(this._fallingText);
 
@@ -142,7 +218,7 @@ DepartureBoard.Letter.prototype._tick = function () {
   newValue = DepartureBoard.LETTERS.charAt(this._index);
 
   this._fallingText.innerHTML = oldValue;
-  fallingStyle.display = 'block';
+  fallingStyle.display = "block";
 
   this._topText.innerHTML = newValue;
 
@@ -151,38 +227,38 @@ DepartureBoard.Letter.prototype._tick = function () {
       fallingTextStyle.MozTransitionTimingFunction =
       fallingTextStyle.OTransitionTimingFunction =
       fallingTextStyle.transitionTimingFunction =
-        'ease-in';
+        "ease-in";
     fallingTextStyle.WebkitTransform =
       fallingTextStyle.MozTransform =
       fallingTextStyle.OTransform =
       fallingTextStyle.transform =
-        'scaleY(0)';
+        "scaleY(0)";
   }, 1);
 
   window.setTimeout(function () {
     me._fallingText.innerHTML = newValue;
 
-    fallingStyle.top = '-.03em';
-    fallingStyle.bottom = 'auto';
-    fallingTextStyle.top = '-.65em';
+    fallingStyle.top = "-.03em";
+    fallingStyle.bottom = "auto";
+    fallingTextStyle.top = "-.65em";
 
     fallingTextStyle.WebkitTransitionTimingFunction =
       fallingTextStyle.MozTransitionTimingFunction =
       fallingTextStyle.OTransitionTimingFunction =
       fallingTextStyle.transitionTimingFunction =
-        'ease-out';
+        "ease-out";
     fallingTextStyle.WebkitTransform =
       fallingTextStyle.MozTransform =
       fallingTextStyle.OTransform =
       fallingTextStyle.transform =
-        'scaleY(1)';
+        "scaleY(1)";
   }, DepartureBoard.Letter.DROP_TIME / 2);
 
   window.setTimeout(function () {
     me._bottomText.innerHTML = newValue;
-    fallingStyle.display = 'none';
+    fallingStyle.display = "none";
 
-    fallingStyle.top = 'auto';
+    fallingStyle.top = "auto";
     fallingStyle.bottom = 0;
     fallingTextStyle.top = 0;
   }, DepartureBoard.Letter.DROP_TIME);

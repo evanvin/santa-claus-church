@@ -60,14 +60,14 @@
     <script>
       (function (w, d, s, l, i) {
         w[l] = w[l] || [];
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
         var f = d.getElementsByTagName(s)[0],
           j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
+          dl = l != "dataLayer" ? "&l=" + l : "";
         j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-P92X2NL');
+      })(window, document, "script", "dataLayer", "GTM-P92X2NL");
     </script>
     <!-- End Google Tag Manager -->
 
@@ -84,7 +84,34 @@
       ></iframe
     ></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <div class="info-board-container"><div id="info-board"></div></div>
+    <div class="info-board-container">
+      <div id="info-board"></div>
+      <div id="mobile-info-board">
+        <div class="mobile-main-message"></div>
+        <div class="mobile-trip-details">
+          <div class="current-stop">
+            <div>Current:</div>
+            <div class="value"></div>
+          </div>
+          <div class="population">
+            <div>Population:</div>
+            <div class="value"></div>
+          </div>
+          <div class="next-stop">
+            <div>Next Stop:</div>
+            <div class="value"></div>
+          </div>
+          <div class="time">
+            <div class="key"></div>
+            <div class="value"></div>
+          </div>
+          <div class="presents-delivered">
+            <div>Presents Devlivered:</div>
+            <div class="value"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div id="map"></div>
 

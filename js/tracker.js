@@ -9,63 +9,67 @@ let sleigh;
 let isFollowing = false;
 let isPlayingSound = false;
 
-const board = new DepartureBoard(document.getElementById('info-board'), {
-  rowCount: 7,
-  letterCount: 48,
-});
+const board = new DepartureBoard(
+  document.getElementById("info-board"),
+  document.getElementById("mobile-info-board"),
+  {
+    rowCount: 7,
+    letterCount: 48,
+  }
+);
 
 // Map Initilization
 var bounds = L.latLngBounds(
   L.latLng(-89.98155760646617, -180), // Southwest
   L.latLng(89.99346179538875, 180) // Northeast
 );
-var map = L.map('map', {
+var map = L.map("map", {
   maxBounds: bounds,
   maxBoundsViscosity: 1.0,
   minZoom: 2,
   detectRetina: true,
 }).setView([70.1170759479725, 26.30972185655632], 3);
-document.getElementsByClassName('leaflet-control-attribution')[0].remove();
-var el = document.getElementById('infoPanel');
+document.getElementsByClassName("leaflet-control-attribution")[0].remove();
+var el = document.getElementById("infoPanel");
 
 L.tileLayer(
   // 'https://api.mapbox.com/styles/v1/evanvin/cl59rnki2000014s1jy5svp8t/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZXZhbnZpbiIsImEiOiJjam81dGg1MGwwZHdkM3ZwYWh5NHJmdWZ3In0.P3Gr9yuJvVVfy0ZvRHsWzA',
-  'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+  "http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
   {
     maxZoom: 19,
-    attribution: 'Santa Claus Tracker',
+    attribution: "Santa Claus Tracker",
   }
 ).addTo(map);
 
 // Follow Button
-let zoomControls = document.getElementsByClassName('leaflet-control-zoom')[0];
-let followSpan = document.createElement('span');
-followSpan.textContent = 'f';
-let followButton = document.createElement('a');
-followButton.classList.add('leaflet-control-zoom-out');
-followButton.setAttribute('role', 'button');
-followButton.setAttribute('title', 'Follow');
-followButton.setAttribute('aria-label', 'Follow');
-followButton.setAttribute('href', '#');
+let zoomControls = document.getElementsByClassName("leaflet-control-zoom")[0];
+let followSpan = document.createElement("span");
+followSpan.textContent = "f";
+let followButton = document.createElement("a");
+followButton.classList.add("leaflet-control-zoom-out");
+followButton.setAttribute("role", "button");
+followButton.setAttribute("title", "Follow");
+followButton.setAttribute("aria-label", "Follow");
+followButton.setAttribute("href", "#");
 followButton.appendChild(followSpan);
 zoomControls.appendChild(followButton);
-followButton.addEventListener('click', toggleFollow);
+followButton.addEventListener("click", toggleFollow);
 
 // Sound Button
-let soundSpan = document.createElement('span');
-soundSpan.textContent = '🔇';
-let soundButton = document.createElement('a');
-soundButton.classList.add('leaflet-control-zoom-out');
-soundButton.setAttribute('role', 'button');
-soundButton.setAttribute('title', 'Sound');
-soundButton.setAttribute('aria-label', 'Sound');
-soundButton.setAttribute('href', '#');
+let soundSpan = document.createElement("span");
+soundSpan.textContent = "🔇";
+let soundButton = document.createElement("a");
+soundButton.classList.add("leaflet-control-zoom-out");
+soundButton.setAttribute("role", "button");
+soundButton.setAttribute("title", "Sound");
+soundButton.setAttribute("aria-label", "Sound");
+soundButton.setAttribute("href", "#");
 soundButton.appendChild(soundSpan);
 zoomControls.appendChild(soundButton);
-soundButton.addEventListener('click', toggleSound);
+soundButton.addEventListener("click", toggleSound);
 
 var sleighIcon = L.icon({
-  iconUrl: '../images/icons/markers/sleigh.png',
+  iconUrl: "../images/icons/markers/sleigh.png",
   iconSize: [32, 32],
 });
 
@@ -106,15 +110,33 @@ function startup() {
 
   if (seconds < 0) {
     // Santa hasn't left yet
-    board.setValue(["Ho Ho Ho! Santa hasn't left yet...","","Come back around 8PM UTC time on the 24th!"])
+    const values = [
+      "Ho Ho Ho! Santa hasn't left yet...",
+      "",
+      "Come back around 8PM UTC time on the 24th!",
+    ];
+
+    board.setValue(values);
+    board.setMobileValue(true, values);
+  } else if (seconds >= 90000 && seconds <= 176400) {
+    const values = [
+      "Santa Claus has ended his yearly journey! Time for him and the",
+      "elves to rest up for a couple weeks before they start working",
+      "on next years order!",
+      "",
+      "Merry Christmas, and have a happy New Year!",
+    ];
+
+    board.setValue(values);
+    board.setMobileValue(true, values);
   } else {
     // Santa is in flight
     url =
-      'https://cors-anywhere.herokuapp.com/https://clovereartquakedog.pythonanywhere.com/santa/route/58';
+      "https://cors-anywhere.herokuapp.com/https://clovereartquakedog.pythonanywhere.com/santa/route/58";
     url = `https://clovereartquakedog.pythonanywhere.com/santa/route/${seconds}`;
     $.ajax({
-      headers: { Accept: 'application/json' },
-      type: 'GET',
+      headers: { Accept: "application/json" },
+      type: "GET",
       url: url,
       // crossDomain: true,
       beforeSend: function (xhr) {
@@ -132,6 +154,9 @@ function startup() {
 
         sleigh.start();
       },
+      error: function (xhr, ajaxOptions, thrownError) {
+        console.error(thrownError);
+      },
     });
   }
 }
@@ -142,10 +167,10 @@ function startup() {
 function toggleFollow() {
   if (isFollowing) {
     sleigh.unfollow();
-    followButton.textContent = 'f';
+    followButton.textContent = "f";
   } else {
     sleigh.follow();
-    followButton.textContent = 'u';
+    followButton.textContent = "u";
   }
 
   isFollowing = !isFollowing;
@@ -154,10 +179,10 @@ function toggleFollow() {
 function toggleSound() {
   if (isPlayingSound) {
     sleigh.muteSound();
-    soundButton.textContent = '🔇';
+    soundButton.textContent = "🔇";
   } else {
     sleigh.playSound();
-    soundButton.textContent = '🔈';
+    soundButton.textContent = "🔈";
   }
 
   isPlayingSound = !isPlayingSound;

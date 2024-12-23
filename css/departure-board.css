@@ -59,7 +59,7 @@
   width: 100%;
   left: 0;
   top: 0.62em;
-  content: ' ';
+  content: " ";
   display: block;
   z-index: 2;
   -moz-transform: translate(0, -0.05em);
@@ -119,4 +119,66 @@
   -moz-transition: -moz-transform linear;
   -o-transition: -o-transform linear;
   transition: transform linear;
+}
+
+#mobile-info-board {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  #mobile-info-board {
+    width: 90%;
+    margin: auto;
+    display: block;
+  }
+
+  .mobile-trip-details, .mobile-main-message  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    padding: 10px;
+
+    color: #fff;
+    background: #228b22;
+    background: #ff6347;
+    border: 5px dashed #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .mobile-trip-details > div {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobile-main-message > div {
+    margin-bottom: 5px;
+  }
+
+  .departure-board {
+    display: none;
+  }
+}
+
+div.mobile-trip-details.hide {
+  display: none;
+}
+
+div.mobile-main-message.hide {
+  display: none;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
